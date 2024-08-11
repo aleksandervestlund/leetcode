@@ -1,9 +1,8 @@
-# Definition for singly-linked list.
 from typing import Optional
 
 
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val: int = 0, next: Optional[ListNode] = None) -> None:
         self.val = val
         self.next = next
 
@@ -23,6 +22,7 @@ class Solution:
             idx += 1
 
             changed = False
+            
             if l1 is not None:
                 l1 = l1.next
                 changed = True
@@ -31,8 +31,8 @@ class Solution:
                 changed = True
 
         total = reversed(str(total))
-        prev = ListNode(int(next(total)))
-        first = prev
+        first = ListNode(int(next(total)))
+        prev = first
 
         for item in total:
             new = ListNode(int(item))
