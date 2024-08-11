@@ -31,14 +31,14 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: source
 
-      - name: Fetch Problem Descriptions and Create `README.md`
+      - name: Fetch Problem Descriptions, and Create `README.md` and `__init__.py`
         run: |
           python3 scripts/fetch_readme_and_init.py
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Add README.md and __init__.py to each problem directory"
+          commit_message: "Add `README.md` and `__init__.py` to each problem directory"
           branch: ${{ github.ref }}
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
