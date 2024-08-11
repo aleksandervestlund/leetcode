@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Sync Leetcode Problems
         uses: joshcai/leetcode-sync@v1.5
         with:
@@ -18,18 +21,29 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: source
           verbose: true
-          commit-header: "[LeetCode Sync]"
+          commit-header: '[LeetCode Sync]'
+
+      - name: List files in the working directory
+        run: ls -alh
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
       - name: Install Python dependencies
         run: |
-          python3 -m pip install requests
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
-          python3 fetch_readme_and_init.py
+          python3 fetch_readme_and_init.py  # Ensure this path is correct
 
       - name: Commit changes
         run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
           git add .
           git commit -m "Add README.md and __init__.py to each problem directory"
           git push
