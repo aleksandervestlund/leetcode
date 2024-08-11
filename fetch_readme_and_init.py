@@ -10,12 +10,17 @@ HEADERS = {
         f"csrftoken={os.getenv('LEETCODE_CSRF_TOKEN')}"
     ),
     "referer": "https://leetcode.com/",
-    "x-csrftoken": os.getenv("LEETCODE_CSRF_TOKEN"),
 }
 
 
 def fetch_problem_description(slug: str) -> str:
-    slug = slug.replace("_", "-")
+    slug = (
+        slug.replace("_", "-")
+        .replace("(", "")
+        .replace(")", "")
+        .replace(",", "")
+        .replace("'", "")
+    )
     url = "https://leetcode.com/graphql"
     query = """
     query getQuestionDetail($titleSlug: String!) {
@@ -27,7 +32,11 @@ def fetch_problem_description(slug: str) -> str:
     variables = {"titleSlug": slug}
     data = {"query": query, "variables": variables}
     response = requests.post(url, json=data, headers=HEADERS, timeout=10)
-    return response.json()["data"]["question"]["content"]
+    try:
+        return response.json()["data"]["question"]["content"]
+    except TypeError:
+        print(f"Failed to fetch description for {slug!r}.")
+        return ""
 
 
 def create_readme_and_init() -> None:
@@ -35,9 +44,9 @@ def create_readme_and_init() -> None:
         problem_dir = os.path.join(BASE_DIR, problem_slug)
 
         readme_path = os.path.join(problem_dir, "README.md")
-        description = fetch_problem_description(problem_slug)
-        with open(readme_path, "w", encoding="utf-8") as file:
-            file.write(description)
+        if description := fetch_problem_description(problem_slug):
+            with open(readme_path, "w", encoding="utf-8") as file:
+                file.write(description)
 
         init_path = os.path.join(problem_dir, "__init__.py")
         if not os.path.exists(init_path):
