@@ -30,8 +30,6 @@ jobs:
           leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: source
-          verbose: true
-          commit-header: "[LeetCode Sync]"
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
