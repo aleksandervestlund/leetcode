@@ -13,7 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Sync Leetcode Problems
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
+
+      - name: Sync LeetCode Problems
         uses: joshcai/leetcode-sync@v1.5
         with:
           github-token: ${{ github.token }}
@@ -21,27 +31,17 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: source
           verbose: true
-          commit-header: '[LeetCode Sync]'
-
-      - name: List files in the working directory
-        run: ls -alh
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install -r requirements.txt
+          commit-header: "[LeetCode Sync]"
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
           python3 fetch_readme_and_init.py
 
-      - name: Commit changes
-        run: |
-          git add .
-          git commit -m "Add README.md and __init__.py to each problem directory"
-          git push
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Add README.md and __init__.py to each problem directory"
+          branch: ${{ github.ref }}
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          file_pattern: "source/*"
