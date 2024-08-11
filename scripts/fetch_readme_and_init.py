@@ -63,9 +63,8 @@ async def create_readme_and_init() -> None:
             problem_dir = os.path.join(BASE_DIR, problem_slug)
             readme_path = os.path.join(problem_dir, "README.md")
 
-            if description:
-                with open(readme_path, "w", encoding="utf-8") as file:
-                    file.write(description)
+            with open(readme_path, "w", encoding="utf-8") as file:
+                file.write(description)
 
 
 if __name__ == "__main__":

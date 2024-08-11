@@ -35,7 +35,7 @@ jobs:
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
-          python3 fetch_readme_and_init.py
+          python3 scripts/fetch_readme_and_init.py
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
