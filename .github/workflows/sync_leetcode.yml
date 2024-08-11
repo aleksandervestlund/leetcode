@@ -38,12 +38,10 @@ jobs:
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
-          python3 fetch_readme_and_init.py  # Ensure this path is correct
+          python3 fetch_readme_and_init.py
 
       - name: Commit changes
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
           git add .
           git commit -m "Add README.md and __init__.py to each problem directory"
           git push
