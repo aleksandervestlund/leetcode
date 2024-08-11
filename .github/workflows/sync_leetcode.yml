@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Sync
+      - name: Sync Leetcode Problems
         uses: joshcai/leetcode-sync@v1.5
         with:
           github-token: ${{ github.token }}
@@ -18,11 +18,17 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: source
           verbose: true
-          commit-header: '[LeetCode Sync]'
-    
+          commit-header: "[LeetCode Sync]"
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11"
+
       - name: Install Python dependencies
-          run: |
-            pip3 install -r requirements.txt
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
 
       - name: Fetch Problem Descriptions and Create `README.md`
         run: |
