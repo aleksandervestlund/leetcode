@@ -1,3 +1,6 @@
+from typing import Optional
+
+
 class Solution:
     def searchInsert(
         self, nums: list[int], target: int, p: int = 0, r: Optional[int] = None

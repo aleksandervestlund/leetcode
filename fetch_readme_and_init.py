@@ -1,6 +1,8 @@
+import asyncio
 import os
+from collections.abc import Coroutine
 
-import requests
+from aiohttp import ClientSession, ClientTimeout
 
 
 BASE_DIR = "source"
@@ -13,7 +15,7 @@ HEADERS = {
 }
 
 
-def fetch_problem_description(slug: str) -> str:
+async def fetch_problem_description(session: ClientSession, slug: str) -> str:
     slug = (
         slug.replace("_", "-")
         .replace("(", "")
@@ -31,28 +33,40 @@ def fetch_problem_description(slug: str) -> str:
     """
     variables = {"titleSlug": slug}
     data = {"query": query, "variables": variables}
-    response = requests.post(url, json=data, headers=HEADERS, timeout=10)
-    try:
-        return response.json()["data"]["question"]["content"]
-    except TypeError:
-        print(f"Failed to fetch description for {slug!r}.")
-        return ""
+    timeout = ClientTimeout(total=10)
+
+    async with session.post(
+        url, json=data, headers=HEADERS, timeout=timeout
+    ) as response:
+        response_json = await response.json()
+        return response_json["data"]["question"]["content"]
 
 
-def create_readme_and_init() -> None:
-    for problem_slug in os.listdir(BASE_DIR):
-        problem_dir = os.path.join(BASE_DIR, problem_slug)
+async def create_readme_and_init() -> None:
+    async with ClientSession() as session:
+        tasks: list[Coroutine] = []
 
-        readme_path = os.path.join(problem_dir, "README.md")
-        if description := fetch_problem_description(problem_slug):
-            with open(readme_path, "w", encoding="utf-8") as file:
-                file.write(description)
+        for problem_slug in os.listdir(BASE_DIR):
+            problem_dir = os.path.join(BASE_DIR, problem_slug)
+            readme_path = os.path.join(problem_dir, "README.md")
+            init_path = os.path.join(problem_dir, "__init__.py")
+            tasks.append(fetch_problem_description(session, problem_slug))
 
-        init_path = os.path.join(problem_dir, "__init__.py")
-        if not os.path.exists(init_path):
-            with open(init_path, "w", encoding="utf-8") as file:
-                pass
+            if not os.path.exists(init_path):
+                with open(init_path, "w", encoding="utf-8") as file:
+                    pass
+
+        descriptions = await asyncio.gather(*tasks)
+        for problem_slug, description in zip(
+            os.listdir(BASE_DIR), descriptions
+        ):
+            problem_dir = os.path.join(BASE_DIR, problem_slug)
+            readme_path = os.path.join(problem_dir, "README.md")
+
+            if description:
+                with open(readme_path, "w", encoding="utf-8") as file:
+                    file.write(description)
 
 
 if __name__ == "__main__":
-    create_readme_and_init()
+    asyncio.run(create_readme_and_init())

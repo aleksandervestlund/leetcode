@@ -12,7 +12,7 @@ class Solution:
         if head is None:
             return None
         seen = {id(head)}
-        while (next_ := head.next) is not None:
+        while (next_ := head.next) is not None:  # type: ignore
             id_ = id(next_)
             if id_ in seen:
                 return next_

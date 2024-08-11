@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 
@@ -22,7 +24,7 @@ class Solution:
             idx += 1
 
             changed = False
-            
+
             if l1 is not None:
                 l1 = l1.next
                 changed = True
@@ -30,13 +32,13 @@ class Solution:
                 l2 = l2.next
                 changed = True
 
-        total = reversed(str(total))
-        first = ListNode(int(next(total)))
-        prev = first
+        totall = reversed(str(total))
+        firstt = ListNode(int(next(totall)))
+        prev = firstt
 
-        for item in total:
+        for item in totall:
             new = ListNode(int(item))
             prev.next = new
             prev = new
 
-        return first
+        return firstt

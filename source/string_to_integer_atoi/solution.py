@@ -11,5 +11,5 @@ class Solution:
                 break
         if sign in {"+", "-", ""}:
             return 0
-        sign = max(-2**31, int(sign))
-        return min(2**31-1, sign)
+        signn = max(-(2**31), int(sign))
+        return min(2**31 - 1, signn)

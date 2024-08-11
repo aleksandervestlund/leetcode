@@ -1,3 +1,6 @@
+import itertools
+
+
 class Solution:
     def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
         def bisect(a: list[int], p: int, r: int, v: int) -> int | None:

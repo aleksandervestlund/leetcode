@@ -1,3 +1,6 @@
+from itertools import takewhile
+
+
 def bisect(a: list[int], p: int, r: int, v: int) -> int | None:
     if p > r:
         return False

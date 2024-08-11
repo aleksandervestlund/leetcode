@@ -15,4 +15,4 @@ class Solution:
                     costs[i - 1][j], costs[i][j - 1]
                 )
 
-        return costs[-1][-1]
+        return costs[-1][-1]  # type: ignore

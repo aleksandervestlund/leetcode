@@ -1,7 +1,7 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         complement = {"{": "}", "(": ")", "[": "]"}
-        queue = []
+        queue: list[str] = []
 
         for char in s:
             end = complement.get(char)
@@ -10,6 +10,5 @@ class Solution:
                     return False
             else:
                 queue.append(end)
-        
+
         return not queue
-                
