@@ -1,7 +1,3 @@
-def is_palindrome(s: str) -> bool:
-    return s == s[::-1]
-
-
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         start_idx = 0
@@ -12,7 +8,7 @@ class Solution:
         while end_idx <= len(s):
             current = s[start_idx:end_idx]
 
-            if is_palindrome(current):
+            if current == current[::-1]:
                 if len(longest) < end_idx - start_idx:
                     longest = current
 
@@ -20,5 +16,8 @@ class Solution:
                 start_idx = 0
             else:
                 start_idx += 1
-
+        
         return longest
+
+
+
