@@ -1,5 +1,5 @@
 class Solution:
-    def searchRange(self, nums: List[int], target: int) -> List[int]:
+    def searchRange(self, nums: list[int], target: int) -> list[int]:
         def bisect(a: list[int], p: int, r: int, v: int) -> int:
             if p > r:
                 return -1
@@ -9,7 +9,7 @@ class Solution:
             if v < a[q]:
                 return bisect(a, p, q - 1, v)
             return bisect(a, q + 1, r, v)
-        
+
         n = len(nums)
         idx = [bisect(nums, 0, n - 1, target)] * 2
         while idx[0] > 0 and nums[idx[0] - 1] == target:

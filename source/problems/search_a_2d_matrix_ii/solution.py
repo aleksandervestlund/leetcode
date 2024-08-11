@@ -10,7 +10,7 @@ def bisect(a: list[int], p: int, r: int, v: int) -> int | None:
 
 
 class Solution:
-    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:
         n = len(matrix[0])
         return any(
             bisect(row, 0, n - 1, target)

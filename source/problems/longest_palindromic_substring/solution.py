@@ -20,8 +20,5 @@ class Solution:
                 start_idx = 0
             else:
                 start_idx += 1
-        
+
         return longest
-
-
-

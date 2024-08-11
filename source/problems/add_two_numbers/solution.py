@@ -1,4 +1,7 @@
 # Definition for singly-linked list.
+from typing import Optional
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
@@ -6,7 +9,9 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
         idx = 0
         total = 0
         changed = True
@@ -24,7 +29,7 @@ class Solution:
             if l2 is not None:
                 l2 = l2.next
                 changed = True
-        
+
         total = reversed(str(total))
         prev = ListNode(int(next(total)))
         first = prev
@@ -33,6 +38,5 @@ class Solution:
             new = ListNode(int(item))
             prev.next = new
             prev = new
-        
+
         return first
-        

@@ -4,7 +4,7 @@ from collections import OrderedDict
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.lru = OrderedDict()
+        self.lru: OrderedDict[int, int] = OrderedDict()
 
     def get(self, key: int) -> int:
         value = self.lru.get(key, -1)
@@ -18,9 +18,3 @@ class LRUCache:
         elif len(self.lru) == self.capacity:
             self.lru.popitem(last=False)
         self.lru[key] = value
-
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)

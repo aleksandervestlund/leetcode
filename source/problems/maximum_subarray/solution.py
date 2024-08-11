@@ -1,5 +1,5 @@
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
+    def maxSubArray(self, nums: list[int]) -> int:
         maks = nums[0]
         total = 0
 
@@ -8,5 +8,3 @@ class Solution:
             total += tall
             maks = max(maks, total)
         return maks
-
-        

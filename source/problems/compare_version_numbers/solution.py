@@ -6,7 +6,7 @@ class Solution:
         for elem1, elem2 in zip_longest(
             (int(elem) for elem in version1.split(".")),
             (int(elem) for elem in version2.split(".")),
-            fillvalue=0
+            fillvalue=0,
         ):
             if elem1 < elem2:
                 return -1

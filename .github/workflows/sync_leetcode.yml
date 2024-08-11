@@ -19,3 +19,17 @@ jobs:
           destination-folder: source
           verbose: true
           commit-header: '[LeetCode Sync]'
+    
+      - name: Install Python dependencies
+          run: |
+            pip3 install -r requirements.txt
+
+      - name: Fetch Problem Descriptions and Create `README.md`
+        run: |
+          python3 fetch_readme_and_init.py
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Add README.md and __init__.py to each problem directory"
+          git push

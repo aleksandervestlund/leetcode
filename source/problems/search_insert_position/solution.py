@@ -1,5 +1,7 @@
 class Solution:
-    def searchInsert(self, nums: List[int], target: int, p: int = 0, r: Optional[int] = None) -> int:
+    def searchInsert(
+        self, nums: list[int], target: int, p: int = 0, r: Optional[int] = None
+    ) -> int:
         if r is None:
             r = len(nums) - 1
         if p > r:

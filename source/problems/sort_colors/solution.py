@@ -1,5 +1,5 @@
 class Solution:
-    def sortColors(self, nums: List[int]) -> None:
+    def sortColors(self, nums: list[int]) -> None:
         b = nums.copy()
         k = max(nums)
         n = len(nums)
@@ -14,4 +14,3 @@ class Solution:
         for i in range(n - 1, -1, -1):
             nums[c[b[i]] - 1] = b[i]
             c[b[i]] -= 1
-        

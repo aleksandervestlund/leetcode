@@ -1,8 +1,11 @@
+from collections import defaultdict
+
+
 class Solution:
     @staticmethod
-    def groupAnagrams(strs: List[str]) -> List[List[str]]:
-        anagrams = {}
+    def groupAnagrams(strs: list[str]) -> list[list[str]]:
+        anagrams = defaultdict(list)
         for elem in strs:
             key = "".join(sorted(elem))
-            anagrams[key] = anagrams.get(key, []) + [elem]
+            anagrams[key].append(elem)
         return list(anagrams.values())

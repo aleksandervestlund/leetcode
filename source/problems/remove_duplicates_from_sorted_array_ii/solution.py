@@ -1,5 +1,5 @@
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
+    def removeDuplicates(self, nums: list[int]) -> int:
         curr = nums[-1]
         curr_count = 0
         for i, elem in reversed(list(enumerate(nums))):

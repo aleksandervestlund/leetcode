@@ -1,5 +1,5 @@
 class Solution:
-    def jump(self, nums: List[int]) -> int:
+    def jump(self, nums: list[int]) -> int:
         if len(nums) <= 1:
             return 0
         jumps = 0

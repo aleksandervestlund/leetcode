@@ -1,5 +1,5 @@
 class Solution:
-    def minPathSum(self, grid: List[List[int]]) -> int:
+    def minPathSum(self, grid: list[list[int]]) -> int:
         m = len(grid)
         n = len(grid[0])
         costs = [[float("inf")] * n for _ in range(m)]
@@ -9,9 +9,10 @@ class Solution:
         for i in range(1, n):
             costs[0][i] = costs[0][i - 1] + grid[0][i]
 
-
         for i in range(1, m):
             for j in range(1, n):
-                costs[i][j] = grid[i][j] + min(costs[i - 1][j], costs[i][j - 1])
-        
+                costs[i][j] = grid[i][j] + min(
+                    costs[i - 1][j], costs[i][j - 1]
+                )
+
         return costs[-1][-1]

@@ -1,5 +1,5 @@
 class Solution:
-    def minimumTotal(self, triangle: List[List[int]]) -> int:
+    def minimumTotal(self, triangle: list[list[int]]) -> int:
         for i in range(1, len(triangle)):
             prev = triangle[i - 1]
             curr = triangle[i]

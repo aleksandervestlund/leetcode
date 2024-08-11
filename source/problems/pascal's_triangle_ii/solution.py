@@ -1,8 +1,8 @@
 class Solution:
-    def getRow(self, rowIndex: int) -> List[int]:
+    def getRow(self, rowIndex: int) -> list[int]:
         if rowIndex == 0:
             return [1]
-        
+
         prev = [1, 1]
         for i in range(1, rowIndex):
             curr = [1, 1]

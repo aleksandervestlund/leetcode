@@ -2,7 +2,7 @@ from itertools import product
 
 
 class Solution:
-    def letterCombinations(self, digits: str) -> List[str]:
+    def letterCombinations(self, digits: str) -> list[str]:
         if not digits:
             return []
         letters = {
@@ -15,4 +15,7 @@ class Solution:
             "8": {"t", "u", "v"},
             "9": {"w", "x", "y", "z"},
         }
-        return ["".join(elem) for elem in product(*(letters[digit] for digit in digits))]
+        return [
+            "".join(elem)
+            for elem in product(*(letters[digit] for digit in digits))
+        ]

@@ -2,7 +2,7 @@ from math import prod
 
 
 class Solution:
-    def productExceptSelf(self, nums: List[int]) -> List[int]:
+    def productExceptSelf(self, nums: list[int]) -> list[int]:
         n = len(nums)
         zeroes = nums.count(0)
 
