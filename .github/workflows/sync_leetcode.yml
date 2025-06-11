@@ -36,7 +36,7 @@ jobs:
           python3 scripts/fetch_readme_and_init.py
 
       - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Add `README.md` and `__init__.py` to each problem directory"
           branch: ${{ github.ref }}
